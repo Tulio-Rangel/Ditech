@@ -9,9 +9,19 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.stream.Collectors;
 
+/**
+ * Manejador global de excepciones para toda la aplicación.
+ * Centraliza el manejo de errores y proporciona respuestas consistentes para diferentes tipos de excepciones.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Maneja excepciones de recursos no encontrados.
+     * @param ex Excepción de recurso no encontrado
+     * @param request Detalles de la solicitud web
+     * @return Respuesta con error HTTP 404
+     */
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
@@ -23,6 +33,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Maneja excepciones de validación de datos.
+     * @param ex Excepción de validación de argumentos
+     * @param request Detalles de la solicitud web
+     * @return Respuesta con error HTTP 400 y detalles de validación
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex, WebRequest request) {
         String message = ex.getBindingResult().getFieldErrors().stream()
@@ -38,6 +54,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Maneja cualquier otra excepción no controlada específicamente.
+     * @param ex Excepción general
+     * @param request Detalles de la solicitud web
+     * @return Respuesta con error HTTP 500
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
