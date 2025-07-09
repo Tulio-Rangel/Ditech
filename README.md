@@ -54,7 +54,7 @@ Para ejecutar el conjunto completo de pruebas (unitarias y de integración), eje
 
 Se ha creado una colección de Postman para probar fácilmente los endpoints de la API. Puedes descargarla desde el siguiente enlace e importarla en tu cliente Postman:
 
-[Descargar Colección de Postman](https://github.com/Tulio-Rangel/Ditech.git)
+[Descargar Colección de Postman](<https://github.com/Tulio-Rangel/Ditech.git>)
 
 ## Monitorización
 
